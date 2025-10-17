@@ -15,6 +15,12 @@ def test_last_answer_initial(calc):
     (0, 0, 0),
     (-3, 0, -3),
     (0, -7, -7),
+    (-100, -200, -300),
+    (100, -0.5, 99.5),
+    (-5, 5, 0),
+    (1_000_000, 2.5, 1_000_002.5),
+    (1e-9, 2e-9, pytest.approx(3e-9, rel=1e-12, abs=1e-12)),
+    (0.1, 0.2, pytest.approx(0.3, rel=1e-12, abs=1e-12)),
 ])
 def test_add(calc, a, b, expected):
     assert calc.add(a, b) == expected
