@@ -1,0 +1,119 @@
+import pytest
+from calculator import Calculator
+
+@pytest.fixture
+def calc():
+    return Calculator()
+
+def test_last_answer_initial(calc):
+    assert calc.last_answer == 0.0
+
+@pytest.mark.parametrize("a,b,expected", [
+    (2, 3, 5),
+    (-1, 5, 4),
+    (1.5, 2.5, 4.0),
+    (0, 0, 0),
+    (-3, 0, -3),
+    (0, -7, -7),
+])
+def test_add(calc, a, b, expected):
+    assert calc.add(a, b) == expected
+    assert calc.last_answer == expected
+
+@pytest.mark.parametrize("a,b,expected", [
+    (5, 3, 2),
+    (0, 5, -5),
+    (2.5, 0.5, 2.0),
+    (-1, -2, 1),
+    (3, -5, 8),
+])
+def test_subtract(calc, a, b, expected):
+    assert calc.subtract(a, b) == expected
+    assert calc.last_answer == expected
+
+@pytest.mark.parametrize("a,b,expected", [
+    (2, 3, 6),
+    (-1, -2, 2),
+    (1.5, 2, 3.0),
+    (0, 123, 0),
+    (-3, 0, 0),
+    (-4, 2.5, -10.0),
+])
+def test_multiply(calc, a, b, expected):
+    assert calc.multiply(a, b) == expected
+    assert calc.last_answer == expected
+
+@pytest.mark.parametrize("a,b,expected", [
+    (6, 3, 2.0),
+    (7, 2, 3.5),
+    (-8, 2, -4.0),
+    (-9, -3, 3.0),
+    (9, -3, -3.0),
+    (1, 3, 0.3333333333333333),
+    (0, 5, 0.0),
+])
+def test_divide(calc, a, b, expected):
+    assert calc.divide(a, b) == expected
+    assert calc.last_answer == expected
+
+def test_divide_by_zero_raises(calc):
+    with pytest.raises(ZeroDivisionError):
+        calc.divide(1, 0)
+
+def test_divide_by_zero_does_not_change_last_answer(calc):
+    calc.add(10, 5)
+    assert calc.last_answer == 15
+    with pytest.raises(ZeroDivisionError):
+        calc.divide(1, 0)
+    assert calc.last_answer == 15
+
+def test_multiply_by_zero(calc):
+    assert calc.multiply(123, 0) == 0
+    assert calc.last_answer == 0
+
+@pytest.mark.parametrize("a,b,expected", [
+    (3, 5, 5),
+    (5, 5, 5),
+    (-1, -2, -1),
+    (-3, -3, -3),
+    (3.5, 2.2, 3.5),
+    (0, -1, 0),
+])
+def test_maximum(calc, a, b, expected):
+    assert calc.maximum(a, b) == expected
+    assert calc.last_answer == expected
+
+@pytest.mark.parametrize("a,b,expected", [
+    (3, 5, 3),
+    (5, 5, 5),
+    (-1, -2, -2),
+    (-3, -3, -3),
+    (3.5, 2.2, 2.2),
+    (0, -1, -1),
+])
+def test_minimum(calc, a, b, expected):
+    assert calc.minimum(a, b) == expected
+    assert calc.last_answer == expected
+
+def test_last_answer_updates_across_operations(calc):
+    calc.add(1, 2)
+    assert calc.last_answer == 3
+    calc.subtract(calc.last_answer, 1)
+    assert calc.last_answer == 2
+    calc.multiply(calc.last_answer, 5)
+    assert calc.last_answer == 10
+    calc.divide(calc.last_answer, 2)
+    assert calc.last_answer == 5.0
+    calc.maximum(calc.last_answer, 10)
+    assert calc.last_answer == 10
+    calc.minimum(calc.last_answer, 7)
+    assert calc.last_answer == 7
+
+def test_last_answer_after_error_then_next_operation_updates(calc):
+    calc.add(2, 2)
+    assert calc.last_answer == 4
+    with pytest.raises(ZeroDivisionError):
+        calc.divide(1, 0)
+    assert calc.last_answer == 4
+    assert calc.subtract(10, 3) == 7
+    assert calc.last_answer == 7
