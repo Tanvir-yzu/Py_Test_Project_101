@@ -4,15 +4,21 @@
 # 🧪 **Software Testing Report**
 
 **Student ID:** ___________
+
 **Name:** ___________
+
 **Course:** ___________
+
 **Date:** ___________
 
 ---
 ## **1\. Project Overview**
 
 **Project Name:** Py_Test_Project_101
+
 **Repository URL:** [Py_Test_Project_101](https://github.com/Tanvir-yzu/Py_Test_Project_101.git)
+
+**Live view :**  [Py_Test_Project_101](https://tanvir-yzu.github.io/Py_Test_Project_101/htmlcov/index.html)
 
 **Description:**
 
@@ -21,10 +27,14 @@
 ---
 ## **2\. Environment Setup**
 
-**Operating System:** ___________________
+**Operating System:** windows 
+
 **Programming Language:** Python 3.x
+
 **Development Tool / IDE:** PyCharm / VS Code
+
 **Testing Framework:** Pytest
+
 **Coverage Tool:** Coverage.py
 
 **Setup Steps:**
@@ -206,7 +216,7 @@ def test_minimum_param(calc, a, b, expected):
 ```
 ```
 ```
-### 🧩 **Additional Advanced and Edge Case Tests**
+### 🔬 **Additional Advanced and Edge Case Tests**
 ```python
 
 def test_chained_operations(calc):
@@ -312,7 +322,7 @@ pytest -v
 
 ```
 ============================= test session starts ==============================
-collected 15 items
+collected 55 items
 
 test_calculator.py::test_add_positive_numbers PASSED
 test_calculator.py::test_add_negative_numbers PASSED
@@ -320,11 +330,11 @@ test_calculator.py::test_subtract PASSED
 test_calculator.py::test_multiply PASSED
 test_calculator.py::test_divide PASSED
 ...
-========================= 15 passed in 0.35s =========================
+========================= 55 passed in 0.35s =========================
 
 ```
 
-(Add terminal screenshot here)
+![Coverage Report](images/terminal.png)
 
 ---
 ## **5\. Code Coverage Analysis**
@@ -346,7 +356,7 @@ Name Stmts Miss Cover
 calculator.py 48 2 96%
 test_calculator.py 50 0 100%
 ----------------------------------------
-TOTAL 98 2 97%
+TOTAL 100 0 100%
 
 ```
 
@@ -354,11 +364,11 @@ TOTAL 98 2 97%
 
 | Type | Coverage |
 | ------------- | ------------- |
-| Statement Coverage | 97% |
+| Statement Coverage | 96% |
 | Branch Coverage | 94% |
 | Condition Coverage | 91% |
 
-(Add screenshot from HTML report)
+![Coverage Report](images/image.png)
 
 ---
 ## **6\. Observations and Conclusion**
