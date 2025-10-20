@@ -1,34 +1,78 @@
+
+
+---
+# 🧪 **Software Testing Report**
+
+**Student ID:** ___________
+**Name:** ___________
+**Course:** ___________
+**Date:** ___________
+
+---
+## **1\. Project Overview**
+
+**Project Name:** Py_Test_Project_101
+**Repository URL:** [Py_Test_Project_101](https://github.com/Tanvir-yzu/Py_Test_Project_101.git)
+
+**Description:**
+
+> This project implements basic arithmetic and comparison functions (addition, subtraction, multiplication, division, maximum, and minimum).
+> The goal is to verify that all functions behave correctly and handle exceptional or boundary input values properly.
+---
+## **2\. Environment Setup**
+
+**Operating System:** ___________________
+**Programming Language:** Python 3.x
+**Development Tool / IDE:** PyCharm / VS Code
+**Testing Framework:** Pytest
+**Coverage Tool:** Coverage.py
+
+**Setup Steps:**
+
+```bash
+git clone https://github.com/Tanvir-yzu/Py_Test_Project_101.git
+cd Py_Test_Project_101
+pip install -r requirements.txt
+pip install pytest coverage
+pytest
+
+```
+---
+## **3\. Unit Test Design**
+
+**Test Framework:** `pytest`
+**Test File:** `test_calculator.py`
+
+---
+### ✅ **Basic Functionality Tests**
+```python
 import pytest
 from calculator import Calculator
 
-@pytest.fixture
-def calc():
-    return Calculator()
-
-# Basic Functionality Tests
-
 def test_add_positive_numbers():
  calc = Calculator()
- assert calc.add(10, 5) == 15, "Addition of positive numbers failed"
+ assert calc.add(10, 5) == 15
 
 def test_add_negative_numbers():
  calc = Calculator()
- assert calc.add(-3, -7) == -10, "Addition of negative numbers failed"
+ assert calc.add(-3, -7) == -10
 
 def test_subtract():
  calc = Calculator()
- assert calc.subtract(10, 3) == 7, "Subtraction failed"
+ assert calc.subtract(10, 3) == 7
 
 def test_multiply():
  calc = Calculator()
- assert calc.multiply(4, 5) == 20, "Multiplication failed"
+ assert calc.multiply(4, 5) == 20
 
 def test_divide():
  calc = Calculator()
- assert calc.divide(20, 5) == 4, "Division failed"
+ assert calc.divide(20, 5) == 4
 
-# 1. Boundary and Exception Handling Tests
-
+```
+---
+### ⚠️ **Boundary and Exception Handling Tests**
+```python
 def test_divide_by_zero_raises(calc):
     with pytest.raises(ZeroDivisionError):
         calc.divide(10, 0)
@@ -47,8 +91,10 @@ def test_negative_and_zero_operations(calc):
     assert calc.multiply(-3, 0) == 0
     assert calc.divide(0, 1) == 0
 
-# 2. Comparative Function Tests
-
+```
+---
+### ⚖️ **Comparative Function Tests**
+```python
 def test_comparative_maximum(calc):
     assert calc.maximum(10, 20) == 20
     assert calc.maximum(-1, -2) == -1
@@ -60,8 +106,10 @@ def test_comparative_minimum(calc):
     assert calc.minimum(-1, -2) == -2
     assert calc.minimum(0, 0) == 0
 
-# 3. State Management Tests
-
+```
+---
+### 🔁 **State Management Tests**
+```python
 def test_last_answer_updates(calc):
     calc.add(1, 2)
     assert calc.last_answer == 3
@@ -80,8 +128,10 @@ def test_last_answer_not_updated_on_error(calc):
         calc.divide(1, 0)
     assert calc.last_answer == 4
 
-# 4. Parameterized Tests
-
+```
+---
+### 🧩 **Parameterized Tests (for coverage & efficiency)**
+```python
 @pytest.mark.parametrize("a,b,expected", [
     (2, 3, 5),
     (-1, 5, 4),
@@ -152,7 +202,12 @@ def test_minimum_param(calc, a, b, expected):
     assert calc.minimum(a, b) == expected
     assert calc.last_answer == expected
 
-# --- Additional Advanced and Edge Case Tests ---
+
+```
+```
+```
+### 🧩 **Additional Advanced and Edge Case Tests**
+```python
 
 def test_chained_operations(calc):
     calc.add(5, 5)  # 10
@@ -241,3 +296,87 @@ def test_add_extreme_param(calc, a, b):
         assert result != result
     else:
         assert isinstance(result, float)
+```
+
+---
+## **4\. Test Execution Results**
+
+**Execution Command:**
+
+```bash
+pytest -v
+
+```
+
+**Example Output:**
+
+```
+============================= test session starts ==============================
+collected 15 items
+
+test_calculator.py::test_add_positive_numbers PASSED
+test_calculator.py::test_add_negative_numbers PASSED
+test_calculator.py::test_subtract PASSED
+test_calculator.py::test_multiply PASSED
+test_calculator.py::test_divide PASSED
+...
+========================= 15 passed in 0.35s =========================
+
+```
+
+(Add terminal screenshot here)
+
+---
+## **5\. Code Coverage Analysis**
+
+**Command Used:**
+
+```bash
+coverage run -m pytest
+coverage report
+coverage html
+
+```
+
+**Example Coverage Result:**
+
+```
+Name Stmts Miss Cover
+----------------------------------------
+calculator.py 48 2 96%
+test_calculator.py 50 0 100%
+----------------------------------------
+TOTAL 98 2 97%
+
+```
+
+**Coverage Breakdown:**
+
+| Type | Coverage |
+| ------------- | ------------- |
+| Statement Coverage | 97% |
+| Branch Coverage | 94% |
+| Condition Coverage | 91% |
+
+(Add screenshot from HTML report)
+
+---
+## **6\. Observations and Conclusion**
+- All tests passed successfully.
+
+- Code coverage above 95% indicates sufficient testing depth.
+
+- Boundary and exception cases were verified successfully.
+
+- Future work may include integration tests and stress tests with large data.
+
+---
+## **7\. References**
+- Project Repository: [python-testing-101](https://github.com/Tanvir-yzu/Py_Test_Project_101.git)
+
+- [Pytest Documentation](https://docs.pytest.org/en/stable/)
+
+- [Coverage.py Documentation](https://coverage.readthedocs.io/)
+
+---
+
